@@ -1,0 +1,795 @@
+Linux Fundamentals:
+=============================
+
+
+Importance of Linux in DevOps
+
+-> It is scalable
+-> It is customizable
+-> Can be integrated easily with Devops tools
+
+Linux:
+========================
+- Commonly used OS
+- OS: A code that manages the hardware of your physical machine
+   OR
+   A software that acts as an interface between the hardware of your system and the software that runs on your system
+
+We need to learn how to connect to a linux OS
+funadamentals of linux
+file system of linux
+users and permissions of linux OS
+
+Components of Linux OS:
+========================
+1. Bootloader or boot strap
+whenever we click on start button on the laptop, the BIOS system will start
+BIOS will wait for the h/w to be ready
+BIOS will trigger the Bootloader
+Bootloader is the first software that will kick start the booting process of your computet
+
+2. Kernel
+It integrates the hardware like CPU, memeory and other periperal devices
+It is the lowest level of your OS
+Inside the kernal we have init system
+
+3. Daemon process
+Daemons in linux are small applications that act as servents in background ensuring that the key functions of the OS are up and ready
+
+4. Graphical server
+
+5. Desktop Environment
+These create the look and feel of your desktop
+
+6. Application that we install on the linux OS
+
+==============================================
+
+
+Connect to AWS EC2 Server:
+===============================================
+
+Connect to the server via windows machine using SSH:
+===================================
+
+Go to AWS → click on checkbox of the server -> click on connect → click on SSH connect
+Copy the command given under Example on the screen
+
+Like this:
+
+ssh -i "04May.pem" ec2-user@ec2-18-117-72-4.us-east-2.mpute.amazonaws.com
+
+
+
+
+Open Command prompt on windows machine
+
+
+
+
+
+
+Press enter
+
+Give yes and press enter key
+
+
+
+
+OR connect via EC2 instance connect from AWS itself
+
+
+
+
+
+Scroll down on the AWS page and click on Connect button
+
+Your server will be connected via the browser.
+
+
+===========================================================
+
+Linux commands are case sensitive
+
+To check the OS
+
+# uname
+
+To check the OS distribution and its version: 
+
+        # cat /etc/os-release
+
+To clean  up the screen
+
+            # clear
+
+
+History of the command executed so far
+# history
+
+Print working directory of the user logged it
+# pwd
+
+~ here indicates that it is the home directory of the user that we are logged in with
+
+Become a super user root in terminal
+
+# sudo su -
+
+# pwd  ⇒ see the change in home directory
+
+Create your own directory
+
+# mkdir myfiles
+
+List the directories
+
+# ls
+
+Switch to the directory
+
+# cd myfiles
+
+Create a file in the directory:
+# touch file1
+
+To list the files:
+
+# ls -al
+
+drwxr-xr-x 2 root root  19 May  5 04:00 .
+dr-xr-x--- 4 root root 139 May  5 03:54 ..
+-rw-r--r-- 1 root root   0 May  5 04:00 file1
+
+
+Here : 
+
+d = directory
+- = in the beginning indicates it is a file
+
+. = current directory
+.. = parent directory
+
+0 = size of the file in bytes
+
+root = user that created the file or directory
+
+root = group name that user is part of
+
+Rw-r--r– : permissions of the file
+
+
+
+In linux every file or directory have permissions as 👍
+
+r = Read permissions
+w = write
+x = Execute permission
+- = No permission
+
+There are 3 types of users to whom we give the permissions:
+
+U -> file user/owner
+G -> group user
+o -> other users on the linux server
+a -> all the users
+
+Break down the permission in to 3 parts:
+
+rw- ⇒ read and write permissions to file owner
+No execute permssion
+r-- ⇒ read permissions to user that are part of same group
+No write and execute permsission
+r-- ⇒ read permission to other users on the linux
+No write and execute permsission
+
+Command to change permissions on file or directory:
+
+#  chmod u+x file1
+  #  ls -l
+   # chmod u-x file1
+   #  ls -al
+   #  chmod o+x file1
+   #  ls -al
+ 	#  chmod g+w file1
+#  ls -al
+  # chmod a+w
+   #  chmod a+w file1
+# ls -al
+# chmod a-w file1
+
+r = Read permissions   => octal number -> 4
+w = write  ===> octal number => 2
+x = Execute permission  ⇒ octal number => 1
+- = No permission  => octal number -> 0
+
+
+Example:
+
+I want to give read permission to owner and no permissions to group and other user
+# chmod 400 file1
+
+I want to give read write permission to owner and to group but no permission to other user
+
+# chmod 660 file1
+
+I want to give read permission to all users
+
+# chmod 444 file1
+
+
+Read permission = 4
+Write permsison = 2
+Execute permission = 1
+
+Main user -> give permission - read  -> 4
+Group user -> give permission - read -> 4
+Other → give permission - read -> 4
+
+# chmod 444 file1
+
+
+Main user -> give permission - read+write  -> 4+2 =6
+Group user -> give permission - read+write -> 4+2 = 6
+Other → give permission - read+write -> 4+2 = 6
+
+
+# chmod 666 file1
+
+
+
+Main user -> give permission - read+write+execute  -> 4+2+1 =7
+Group user -> give permission - read+write+execute -> 4+2+1 = 7
+Other → give permission - read+write +execute -> 4+2+1= 7
+
+
+# chmod 777 file1
+
+Main user -> give permission - read+execute  -> 4+1 =5
+Group user -> give permission - read+write -> 4+2 = 6
+Other → give permission - read -> 4= 4
+
+# chmod 564 file1
+
+
+Add content in the file:
+=============================
+
+# nano file1
+
+Insert some lines or content
+
+Save the content—>  CTRL x
+
+Press the key  -> y
+
+Press enter key
+
+Display the all content of the file:
+
+# cat file1
+
+Display only last 10 lines of the file
+# tail file1
+
+
+
+Display only last 5 lines of the file
+
+# tail -n 5 file1
+
+
+Display only first10 lines of the file
+# head file1
+
+Display only first 5 lines of the file
+# head -n 5 file1
+
+Copy a file into another file
+
+# cp file1 file2
+
+Remove a file
+
+# rm file2
+
+
+Remove a directory: -> Don't execute this. Just for information
+
+# rm -rf direname
+
+
+
+11 may 2024
+========================
+Connected to the VM
+
+# sudo su -
+
+
+# vim file2
+
+Press the key i
+
+Insert some data or text
+
+Save the data and exit the file
+
+Press the key ESC on your keyword  (available on the left side top)
+
+Press :wq
+
+Press enter key
+
+
+=====================================
+
+Rename a file
+
+Syntax: mv oldfilename newfilename
+
+# mv file2 newfile
+
+# ls
+
+
+Command to see the live status of all running processes in the linux OS
+
+# top
+
+Press CTRL + C to come out of the top command
+
+# ps  => shows all current  process snapshot of current user
+
+# ps aux
+
+A : show process by all users
+U: process owner/user details
+X : displays process that are not attached to the terminal
+
+Search for a specific process:
+
+# ps aux | grep systemd
+
+
+# ps -l -u ec2-user
+
+# pgrep -l -u ec2-user
+
+
+Kill a specific process:
+
+# kill -9 pid
+
+Command to kill all process of a user
+
+# pkill -u ec2-user
+
+===============================================
+Command to create a user:
+
+# adduser linuxoperator
+
+Command to chekc the user
+
+# cat /etc/passwd
+
+
+=============================================
+
+Assignment:
+=============================================
+
+
+  122  vim sample.txt
+  123  grep unix sample.txt
+  124  clear
+  125  cat sample.txt
+  126  sed 's/unix/linux' sample.txt
+  127  sed 's/unix/linux/' sample.txt
+  128  cat sample.txt
+  129  clear
+  130  cat sample.txt
+  131  sed   's/unix/linux/3'   sample.txt
+  132  clear
+  133  cat sample.txt
+  134  sed   's/unix/linux/3'   sample.txt
+  135  clear
+  136  cat sample.txt
+  137  sed   's/unix/linux/g'   sample.txt
+  138  sed   's/unix/linux/3g'   sample.txt
+  139  clear
+  140  cat sample.txt
+  141  sed   's/unix/linux/3g'   sample.txt
+  142  sed   's/unix/linux/3'   sample.txt
+  143  clear
+  144  cat sample.txt
+  145  sed   's/unix/linux/1'   sample.txt
+  146  clear
+  147  cat sample.txt
+  148  sed   '6 s/unix/linux/1'   sample.txt
+  149  sed   '4,5,6 s/unix/linux/1'   sample.txt
+  150  sed   '4,5,6 s/unix/linux/'   sample.txt
+  151  clear
+  152  sed   '4,6 s/unix/linux/1'   sample.txt
+  153  sed   '4,$ s/unix/linux/1'   sample.txt
+  154  sed  '4d' sample.txt
+  155  clear
+  156  cat sample.txt
+  157  sed  '4d' sample.txt
+  158  sed  '4d,$d' sample.txt
+  159  sed  '4,$d' sample.txt
+  160  clear
+  161  cat sample.txt
+  162  sed  '/learn/d' sample.txt
+  163  clear
+  164  sed  '2,6d' sample.txt
+
+sed -n '4,6'p sample.txt
+
+# vim employee.txt
+
+ajay manager account 45000
+sunil clerk account 25000
+varun manager sales 50000
+amit manager account 47000
+tarun peon sales 15000
+deepak clerk sales 23000
+sunil peon sales 13000
+satvik director purchase 80000
+
+
+
+# awk '{print}' employee.txt
+
+# awk '/manager/ {print}' employee.txt
+
+# awk '{print $1,$4}' employee.txt
+
+
+Awk is a scripting language used for manipulating data and generating reports. The awk command programming language requires no compiling and allows the user to use variables, numeric functions, string functions, and logical operators. 
+Awk is a utility that enables a programmer to write tiny but effective programs in the form of statements that define text patterns that are to be searched for in each line of a document and the action that is to be taken when a match is found within a line. Awk is mostly used for pattern scanning and processing. It searches one or more files to see if they contain lines that matches with the specified patterns and then perform the associated actions. 
+Awk is abbreviated from the names of the developers – Aho, Weinberger, and Kernighan. 
+WHAT CAN WE DO WITH AWK? 
+1. AWK Operations: 
+ (a) Scans a file line by line 
+ (b) Splits each input line into fields 
+ (c) Compares input line/fields to pattern 
+ (d) Performs action(s) on matched lines 
+2. Useful For: 
+ (a) Transform data files 
+ (b) Produce formatted reports 
+3. Programming Constructs: 
+ (a) Format output lines 
+ (b) Arithmetic and string operations 
+ (c) Conditionals and loops 
+Syntax:
+awk options 'selection _criteria {action }' input-file > output-file
+Options:  
+-f program-file : Reads the AWK program source from the file
+              	program-file, instead of from the
+              	first command line argument.
+-F fs        	: Use fs for the input field separator
+Sample Commands 
+Example: 
+Consider the following text file as the input file for all cases below: 
+$cat > employee.txt
+ajay manager account 45000
+sunil clerk account 25000
+varun manager sales 50000
+amit manager account 47000
+tarun peon sales 15000
+deepak clerk sales 23000
+sunil peon sales 13000
+satvik director purchase 80000
+1. Default behavior of Awk: By default Awk prints every line of data from the specified file.  
+$ awk '{print}' employee.txt
+Output:  
+ajay manager account 45000
+sunil clerk account 25000
+varun manager sales 50000
+amit manager account 47000
+tarun peon sales 15000
+deepak clerk sales 23000
+sunil peon sales 13000
+satvik director purchase 80000
+In the above example, no pattern is given. So the actions are applicable to all the lines. Action print without any argument prints the whole line by default, so it prints all the lines of the file without failure. 
+2. Print the lines which match the given pattern. 
+$ awk '/manager/ {print}' employee.txt
+Output:  
+ajay manager account 45000
+varun manager sales 50000
+amit manager account 47000
+In the above example, the awk command prints all the line which matches with the ‘manager’. 
+3. Splitting a Line Into Fields : For each record i.e line, the awk command splits the record delimited by whitespace character by default and stores it in the $n variables. If the line has 4 words, it will be stored in $1, $2, $3 and $4 respectively. Also, $0 represents the whole line.  
+$ awk '{print $1,$4}' employee.txt
+Output:  
+ajay 45000
+sunil 25000
+varun 50000
+amit 47000
+tarun 15000
+deepak 23000
+sunil 13000
+satvik 80000
+In the above example, $1 and $4 represents Name and Salary fields respectively. 
+Built-In Variables In Awk
+Awk’s built-in variables include the field variables—$1, $2, $3, and so on ($0 is the entire line) — that break a line of text into individual words or pieces called fields. 
+·        NR: NR command keeps a current count of the number of input records. Remember that records are usually lines. Awk command performs the pattern/action statements once for each record in a file. 
+·        NF: NF command keeps a count of the number of fields within the current input record. 
+·        FS: FS command contains the field separator character which is used to divide fields on the input line. The default is “white space”, meaning space and tab characters. FS can be reassigned to another character (typically in BEGIN) to change the field separator. 
+·        RS: RS command stores the current record separator character. Since, by default, an input line is the input record, the default record separator character is a newline. 
+·        OFS: OFS command stores the output field separator, which separates the fields when Awk prints them. The default is a blank space. Whenever print has several parameters separated with commas, it will print the value of OFS in between each parameter. 
+·        ORS: ORS command stores the output record separator, which separates the output lines when Awk prints them. The default is a newline character. print automatically outputs the contents of ORS at the end of whatever it is given to print. 
+Examples: 
+Use of NR built-in variables (Display Line Number)  
+$ awk '{print NR,$0}' employee.txt
+Output:  
+1 ajay manager account 45000
+2 sunil clerk account 25000
+3 varun manager sales 50000
+4 amit manager account 47000
+5 tarun peon sales 15000
+6 deepak clerk sales 23000
+7 sunil peon sales 13000
+8 satvik director purchase 80000
+In the above example, the awk command with NR prints all the lines along with the line number. 
+Use of NF built-in variables (Display Last Field)  
+$ awk '{print $1,$NF}' employee.txt
+Output:  
+ajay 45000
+sunil 25000
+varun 50000
+amit 47000
+tarun 15000
+deepak 23000
+sunil 13000
+satvik 80000
+In the above example $1 represents Name and $NF represents Salary. We can get the Salary using $NF , where $NF represents last field. 
+Another use of NR built-in variables (Display Line From 3 to 6)  
+$ awk 'NR==3, NR==6 {print NR,$0}' employee.txt
+Output:  
+3 varun manager sales 50000
+4 amit manager account 47000
+5 tarun peon sales 15000
+6 deepak clerk sales 23000
+More Examples
+For the given text file:  
+$cat > geeksforgeeks.txt
+ 
+A	B    C
+Tarun	A12    1
+Man	B6    2
+Praveen	M42    3
+1) To print the first item along with the row number(NR) separated with ” – “ from each line in geeksforgeeks.txt:  
+$ awk '{print NR "- " $1 }' geeksforgeeks.txt
+1 - A
+2 - Tarun
+3 – Manav	
+4 - Praveen
+2) To return the second column/item from geeksforgeeks.txt: 
+The question should be:- To return the second column/item from geeksforgeeks.txt:
+$ awk '{print $2}' geeksforgeeks.txt
+B
+A12
+B6
+M42
+3) To print any non empty line if present  
+$ awk 'NF < 0' geeksforgeeks.txt
+here NF should be 0 not less than and the user have to print the line number also:
+correct answer : awk ‘NF == 0 {print NR}’  geeksforgeeks.txt
+OR 
+awk ‘NF <= 0 {print NR}’  geeksforgeeks.txt
+0
+4) To find the length of the longest line present in the file:  
+$ awk '{ if (length($0) > max) max = length($0) } END { print max }' geeksforgeeks.txt
+13
+5) To count the lines in a file:  
+$ awk 'END { print NR }' geeksforgeeks.txt
+3
+6) Printing lines with more than 10 characters:  
+$ awk 'length($0) > 10' geeksforgeeks.txt
+Tarun	A12    1
+Praveen	M42    3
+7) To find/check for any string in any specific column:  
+$ awk '{ if($3 == "B6") print $0;}' geeksforgeeks.txt
+8) To print the squares of first numbers from 1 to n say 6:  
+$ awk 'BEGIN { for(i=1;i<=6;i++) print "square of", i, "is",i*i; }'
+square of 1 is 1
+square of 2 is 4
+square of 3 is 9
+square of 4 is 16
+square of 5 is 25
+square of 6 is 36
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
